@@ -1,7 +1,7 @@
 //console.log("carregando do arquivo");
 
 var titulo=document.querySelector('#titulo');
-
-//console.log(titulo.textContent);
+var tituloPacientes=document.querySelector('#titulo-pacientes');
+console.log(tituloPacientes.textContent);
 
 titulo.textContent="Aparecida Nutricionista";
