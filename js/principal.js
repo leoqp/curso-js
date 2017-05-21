@@ -1,7 +1,16 @@
 //console.log("carregando do arquivo");
 
 var titulo=document.querySelector('#titulo');
-var tituloPacientes=document.querySelector('#titulo-pacientes');
+
+var trPaciente=document.querySelector('#primeiro-paciente');
+var pesoPaciente = trPaciente.querySelector('.info-peso').textContent;
+var alturaPaciente = trPaciente.querySelector('.info-altura').textContent;
+
+var calculoImc= pesoPaciente/(alturaPaciente*alturaPaciente);
+console.log(calculoImc);
+
+var imcPaciente = trPaciente.querySelector('.info-imc');
+imcPaciente.textContent=calculoImc;
 //console.log(tituloPacientes.textContent);
 
 titulo.textContent="Aparecida Nutricionista";
