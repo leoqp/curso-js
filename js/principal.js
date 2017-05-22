@@ -30,15 +30,11 @@ for (var i=0;i < pacientes.length;i++)
     //Traz apenas 2 casas decimais do numéro calculado
     imcPaciente.textContent=calculoImc.toFixed(2);
   }
+  //Adiciona mensagem ao imc e altera a cor de fundo(classe css)
   else {
+    trPaciente.classList.add('paciente-invalido');
     imcPaciente.textContent="Dados inválidos!";
   }
-  //console.log(tituloPacientes.textContent);
 }
 
-
-
-//console.log(titulo.textContent);
 titulo.textContent="Aparecida Nutricionista";
-
-//Novas alterações para a branch javascript-v0.1

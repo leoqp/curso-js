@@ -85,6 +85,10 @@ label{
 	width: 100%;
 }
 
+.paciente-invalido{
+	background-color:lightcoral;
+}
+
 .campo-medio{
 	display: inline-block;
 	padding-right: .5em;
