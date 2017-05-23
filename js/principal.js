@@ -14,7 +14,7 @@ for (var i=0;i < pacientes.length;i++)
   var pesoValidador=true;
   var alturaValidador=true;
 
-  if((pesoPaciente<=0) || (pesoPaciente>=300))
+  if((pesoPaciente<=0) || (pesoPaciente>=250))
   {
     pesoValidador=false;
   }
