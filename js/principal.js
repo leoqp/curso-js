@@ -43,7 +43,44 @@ for (var i=0;i < pacientes.length;i++)
 var botaoAdicionar = document.querySelector('#adicionar-paciente');
 botaoAdicionar.addEventListener('click',function(event){
     event.preventDefault();
-    console.log('teste');
+    var formAdiciona = document.querySelector('#form-adiciona');
+    //Busca os valores dos campos(value) do formulario, usando o atributo name
+    //form.name.value
+    var nome = formAdiciona.nome.value;
+    var peso = formAdiciona.peso.value;
+    var altura = formAdiciona.altura.value;
+    var gordura = formAdiciona.gordura.value;
+    var imc = peso/(altura*altura);
+
+    //Iremos criar um novo tr dentro da table-layout
+
+    //busca a tabela
+    var tabelaPacientes = document.querySelector('#tabela-pacientes');
+
+    //Cria nova tr para o novo paciente - recebera as novas trs
+    var pacienteTr = document.createElement("tr");
+
+    //Cria as tds da nova tr
+    var nomeTd = document.createElement("td");
+    var pesoTd = document.createElement("td");
+    var alturaTd = document.createElement("td");
+    var gorduraTd = document.createElement("td");
+    var imcTd = document.createElement("td");
+
+    //Adicionamos o conteúdo das tds na tabela
+    nomeTd.textContent = nome;
+    pesoTd.textContent = peso;
+    alturaTd.textContent = altura;
+    gorduraTd.textContent = gordura;
+    imcTd.textContent = imc.toFixed(2);
+
+    pacienteTr.appendChild(nomeTd);
+    pacienteTr.appendChild(pesoTd);
+    pacienteTr.appendChild(alturaTd);
+    pacienteTr.appendChild(gorduraTd);
+    pacienteTr.appendChild(imcTd);
+
+    tabelaPacientes.appendChild(pacienteTr);
 });
 
 titulo.textContent="Aparecida Nutricionista";
