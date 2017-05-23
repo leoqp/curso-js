@@ -37,4 +37,13 @@ for (var i=0;i < pacientes.length;i++)
   }
 }
 
+//Ação em cima do botão de adicionar paciente
+
+//Botão
+var botaoAdicionar = document.querySelector('#adicionar-paciente');
+botaoAdicionar.addEventListener('click',function(event){
+    event.preventDefault();
+    console.log('teste');
+});
+
 titulo.textContent="Aparecida Nutricionista";
