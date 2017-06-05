@@ -1,4 +1,5 @@
 var titulo=document.querySelector('#titulo');
+titulo.textContent="Sistema Nutricionista";
 
 //Busca todos os pacientes com a classe paciente
 var pacientes = document.querySelectorAll('.paciente');
@@ -11,8 +12,21 @@ for (var i=0;i < pacientes.length;i++)
   var alturaPaciente = trPaciente.querySelector('.info-altura').textContent;
   var imcPaciente = trPaciente.querySelector('.info-imc');
 
-  var pesoValidador=true;
+  if(validarDados(pesoPaciente,alturaPaciente))
+  {
+    imcPaciente.textContent=calcularImc(pesoPaciente,alturaPaciente);
+  }
+  //Adiciona mensagem ao imc e altera a cor de fundo(classe css)
+  else {
+    trPaciente.classList.add('paciente-invalido');
+    imcPaciente.textContent="Dados inválidos!";
+  }
+}
+
+function validarDados(pesoPaciente,alturaPaciente)
+{
   var alturaValidador=true;
+  var pesoValidador=true;
 
   if((pesoPaciente<=0) || (pesoPaciente>=250))
   {
@@ -24,17 +38,68 @@ for (var i=0;i < pacientes.length;i++)
     alturaValidador=false;
   }
 
-  if(alturaValidador && pesoValidador)
+  if (alturaValidador && pesoValidador)
   {
-    var calculoImc= pesoPaciente/(alturaPaciente*alturaPaciente);
-    //Traz apenas 2 casas decimais do numéro calculado
-    imcPaciente.textContent=calculoImc.toFixed(2);
+    return true;
   }
-  //Adiciona mensagem ao imc e altera a cor de fundo(classe css)
-  else {
-    trPaciente.classList.add('paciente-invalido');
-    imcPaciente.textContent="Dados inválidos!";
+  else{
+    return false;
   }
+
+}
+
+function calcularImc(peso,altura)
+{
+  var imc = peso/(altura*altura);
+  return imc.toFixed(2);
+}
+
+function retornaPacienteDoForm(form)
+{
+  //Busca os valores dos campos(value) do formulario, usando o atributos
+
+  //Cria um objeto paciente
+  var paciente = {
+    nome:form.nome.value,
+    peso:form.peso.value,
+    altura:form.altura.value,
+    gordura:form.gordura.value,
+    imc:calcularImc(peso.value,altura.value),
+  }
+
+  return paciente;
+
+
+}
+
+function montarTabela(paciente)
+{
+  //Cria nova tr para o novo paciente - recebera as novas trs
+  var pacienteTr = document.createElement("tr");
+
+  //Cria as tds da nova tr
+  var nomeTd = document.createElement("td");
+  var pesoTd = document.createElement("td");
+  var alturaTd = document.createElement("td");
+  var gorduraTd = document.createElement("td");
+  var imcTd = document.createElement("td");
+
+  //Adicionamos o conteúdo das tds na tabela
+  nomeTd.textContent = paciente.nome;
+  pesoTd.textContent = paciente.peso;
+  alturaTd.textContent = paciente.altura;
+  gorduraTd.textContent = paciente.gordura;
+  imcTd.textContent = paciente.imc;
+
+  pacienteTr.appendChild(nomeTd);
+  pacienteTr.appendChild(pesoTd);
+  pacienteTr.appendChild(alturaTd);
+  pacienteTr.appendChild(gorduraTd);
+  pacienteTr.appendChild(imcTd);
+
+  //busca a tabela
+  var tabelaPacientes = document.querySelector('#tabela-pacientes');
+  tabelaPacientes.appendChild(pacienteTr);
 }
 
 //Ação em cima do botão de adicionar paciente
@@ -43,44 +108,14 @@ for (var i=0;i < pacientes.length;i++)
 var botaoAdicionar = document.querySelector('#adicionar-paciente');
 botaoAdicionar.addEventListener('click',function(event){
     event.preventDefault();
+
     var formAdiciona = document.querySelector('#form-adiciona');
-    //Busca os valores dos campos(value) do formulario, usando o atributo name
-    //form.name.value
-    var nome = formAdiciona.nome.value;
-    var peso = formAdiciona.peso.value;
-    var altura = formAdiciona.altura.value;
-    var gordura = formAdiciona.gordura.value;
-    var imc = peso/(altura*altura);
+    var paciente = retornaPacienteDoForm(formAdiciona);
+
+    console.log(paciente);
 
     //Iremos criar um novo tr dentro da table-layout
 
-    //busca a tabela
-    var tabelaPacientes = document.querySelector('#tabela-pacientes');
+    montarTabela(paciente);
 
-    //Cria nova tr para o novo paciente - recebera as novas trs
-    var pacienteTr = document.createElement("tr");
-
-    //Cria as tds da nova tr
-    var nomeTd = document.createElement("td");
-    var pesoTd = document.createElement("td");
-    var alturaTd = document.createElement("td");
-    var gorduraTd = document.createElement("td");
-    var imcTd = document.createElement("td");
-
-    //Adicionamos o conteúdo das tds na tabela
-    nomeTd.textContent = nome;
-    pesoTd.textContent = peso;
-    alturaTd.textContent = altura;
-    gorduraTd.textContent = gordura;
-    imcTd.textContent = imc.toFixed(2);
-
-    pacienteTr.appendChild(nomeTd);
-    pacienteTr.appendChild(pesoTd);
-    pacienteTr.appendChild(alturaTd);
-    pacienteTr.appendChild(gorduraTd);
-    pacienteTr.appendChild(imcTd);
-
-    tabelaPacientes.appendChild(pacienteTr);
 });
-
-titulo.textContent="Aparecida Nutricionista";
